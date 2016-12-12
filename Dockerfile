@@ -17,10 +17,7 @@ RUN export UNAME=$UNAME UID=1000 GID=1000 && \
     chown ${UID}:${GID} -R /home/${UNAME} && \
     gpasswd -a ${UNAME} audio
 
-RUN echo "default-server = unix:/run/user/1000/pulse/native" > /etc/pulse/client.conf \
- && echo "autospawn = no" >> /etc/pulse/client.conf \
- && echo "daemon-binary = /bin/true" >> /etc/pulse/client.conf \
- && echo "enable-shm = false" >> /etc/pulse/client.conf
+COPY pulse-client.conf /etc/pulse/client.conf
 
 USER $UNAME
 ENV HOME /home/pacat
